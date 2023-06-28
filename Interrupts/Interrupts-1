@@ -1,0 +1,41 @@
+//Toggle LED with Delay & Interrupt
+
+const byte led = 13;
+const byte button = 2;
+
+volatile bool state = false;
+
+void detectButton() {
+  if (digitalRead(button) == LOW) {
+    state = !state;
+    digitalWrite(led, state);
+  }
+}
+
+void setup() {
+  pinMode(led, OUTPUT);
+  pinMode(button, INPUT_PULLUP);
+
+  // Interrupt Service Routine
+  attachInterrupt(digitalPinToInterrupt(button),detectButton, FALLING); 
+}
+
+void loop() {
+  
+}
+
+/* ------------------------------------------------------------------------------------------------------------------------------------------------------------------        
+
+
+attachInterrupt(digitalPinToInterrupt(button), detectButton, FALLING);
+
+
+- attachInterrupt(): This is an Arduino function used to attach an interrupt handler to a specific interrupt. It allows you to define a function that will be executed
+when the interrupt condition is met.
+- digitalPinToInterrupt(button): digitalPinToInterrupt() is a function that maps the Arduino pin number to the corresponding interrupt number. It takes the pin 
+number as an argument and returns the corresponding interrupt number.
+- detectButton: This is the name of the function that will be executed when the interrupt is triggered. You need to define this function elsewhere in your code.
+- FALLING: This parameter specifies the interrupt mode or condition that will trigger the interrupt. In this case, `FALLING` indicates that the interrupt will be 
+triggered when the signal on the specified pin transitions from HIGH to LOW.          
+---------------------------------------------------------------------------------------------------------------------------------------------------------------------*/
+
