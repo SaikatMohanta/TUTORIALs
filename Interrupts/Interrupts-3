@@ -1,0 +1,44 @@
+//Multiple Pin Change Interrupts test
+ 
+//Demonstrates Pin Change Interrupts with two on same port
+//Buttons on D2 & D7, LEDs on D11 and D13
+
+
+const byte led1 = 11;
+const byte led2 = 13;
+const byte button1 = 2;
+const byte button2 = 7;
+
+volatile bool state1 = false;
+volatile bool state2 = false;
+
+void setup() {
+  pinMode(led1, OUTPUT);
+  pinMode(led2, OUTPUT);
+
+  pinMode(button1, INPUT_PULLUP);
+  pinMode(button2, INPUT_PULLUP);
+
+  // Enable PCIE2 Bit3 = 1 (Port D)
+  PCICR |= B00000100;
+  // Enable PCINT18  & PCINT23 (Pins D2 & D7)
+  PCMSK2 |= B10000100;
+}
+
+void loop() {
+
+}
+
+ISR (PCINT2_vect){  
+  // Check if this was D2
+  if (digitalRead(button1) == LOW) {
+    state1 = !state1;
+    digitalWrite(led1, state1);
+  }
+
+  // Check if this was D7
+  if (digitalRead(button2) == LOW) {
+    state2 = !state2;
+    digitalWrite(led2, state2);
+  }
+}
