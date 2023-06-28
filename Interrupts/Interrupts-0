@@ -1,0 +1,33 @@
+//LED Toggle  with out any Interrupt
+
+// Define 'LED' and Button
+const byte led = 13;
+const byte button = 2;
+
+// Boolean type variable 'state'
+volatile bool state = false;
+
+//User defined function to detect the 'button press'
+void detectPush() {
+
+  if (digitalRead(button) == LOW) {
+    // if button is pressed, means shorted to 'GND'
+    // delay to debounce
+    delay(10);
+    // Change state of toggle
+    state = !state;
+    digitalWrite(led, state);
+  }
+}
+
+void setup() {
+  // 'LED' pin as output
+  pinMode(led, OUTPUT);
+  // button as INPUT with internal pullup
+  pinMode(button, INPUT_PULLUP);
+}
+
+void loop() {
+  // Call the user defined function to detect button press
+  detectPush();
+}
