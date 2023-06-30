@@ -1,0 +1,64 @@
+#include<stdio.h>
+#include<conio.h>
+
+
+
+void main(){
+
+	float vce,vcc,pmax,ic,av;
+     float rc,re,r1,r2,hfe,hie,s,rb,vbb,r;
+     float ci,c0,cu,f1,f2,ce,d;
+	int n;
+
+	printf("give n   ");
+	scanf("%d", &n);
+
+	printf("give pmax  ");
+	scanf("%f",&pmax);
+
+	printf("give Av   ");
+	scanf("%f",&av);
+
+	printf("give Vcc   ");
+	scanf("%f",&vcc);
+
+	printf("give hfe   ");
+	scanf("%f",&hfe);
+
+	/*printf("give f1   ");
+	scanf("%f",&f1);
+
+	printf("give f2   ");
+	scanf("%f",&f2);*/
+
+	vce=vcc/2.0;
+	ic=(n/100.0)*(pmax/vce);
+	printf("\nIc = %f",ic);
+
+	hie=(hfe*0.026)/ic;
+	printf("\nhie = %f ohm",hie);
+
+	rc=(av*hie)/hfe;
+	printf("\nrc = %f ohm",rc);
+
+	re=(vcc/(2*ic)) - rc;
+	printf("\nre = %f ohm",re);
+
+	s=(hfe/15.0);
+	r=((s*(1+hfe))-(2*hfe+1))/(hfe+2-s);
+	rb=re*r;
+	vbb=(ic/hfe)*rb + 0.7 + (ic*re);
+
+	r1 = rb*(vcc/vbb);
+     //r1=r1/1000;
+	printf("\nr1 = %f ohm",r1);
+
+	r2 = rb/(1-(vbb/vcc));
+	//r2=r2/1000;
+	printf("\nr2 = %f ohm",r2);
+
+
+
+
+	getch();
+	}
