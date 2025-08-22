@@ -1,2 +1,2 @@
 # TUTORIALs
-Get the usefull sketches to build your projects and learn the different aspects of Arduino...
+###Notes on various topics from both theoratical & Practical aspects
